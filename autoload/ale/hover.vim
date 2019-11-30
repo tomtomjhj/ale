@@ -43,7 +43,15 @@ function! ale#hover#HandleTSServerResponse(conn_id, response) abort
             \&& ale#Var(l:options.buffer, 'set_balloons')
                 call balloon_show(a:response.body.displayString)
             else
-                call ale#util#ShowMessage(a:response.body.displayString)
+                let l:lines = split(a:response.body.displayString, "\n")
+                if len(l:lines) <= &previewheight
+                    call ale#util#ShowMessage(l:str)
+                else
+                    call ale#preview#Show(l:lines, {
+                    \   'filetype': 'ale-preview.message',
+                    \   'stay_here': 1,
+                    \})
+                endif
             endif
         endif
     endif
@@ -99,7 +107,15 @@ function! ale#hover#HandleLSPResponse(conn_id, response) abort
                 \&& ale#Var(l:options.buffer, 'set_balloons')
                     call balloon_show(l:str)
                 else
-                    call ale#util#ShowMessage(l:str)
+                    let l:lines = split(l:str, "\n")
+                    if len(l:lines) <= &previewheight
+                        call ale#util#ShowMessage(l:str)
+                    else
+                        call ale#preview#Show(l:lines, {
+                        \   'filetype': 'ale-preview.message',
+                        \   'stay_here': 1,
+                        \})
+                    endif
                 endif
             endif
         endif
