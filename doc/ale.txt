@@ -2541,6 +2541,7 @@ documented in additional help files.
     sorbet................................|ale-ruby-sorbet|
     standardrb............................|ale-ruby-standardrb|
   rust....................................|ale-rust-options|
+    analyzer..............................|ale-rust-analyzer|
     cargo.................................|ale-rust-cargo|
     rls...................................|ale-rust-rls|
     rustc.................................|ale-rust-rustc|
